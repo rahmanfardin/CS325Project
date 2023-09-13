@@ -47,6 +47,15 @@ int findIndex(vector<int> givenArray, int Size, int key)
     }
     return INT_MAX;
 }
+int findIndex(vector<int> givenArray, int Size, int till, int key)
+{
+    for (int i = Size; i >= till; i--)
+    {
+        if (givenArray[i] == key)
+            return i;
+    }
+    return INT_MAX;
+}
 
 vector<int> leastIdx(vector<int> array, int pageSize, vector<int> givenArray, int Size)
 {
@@ -69,7 +78,7 @@ int lru(vector<int> array, int pageSize, vector<int> givenArray, int Size)
     {
         if (count >= pageSize)
         {
-            vector<int> lindex = leastIdx(array, pageSize, givenArray, i+1);
+            vector<int> lindex = leastIdx(array, pageSize, givenArray, i + 1);
             index = findMIN(lindex, pageSize);
         }
 
@@ -77,7 +86,7 @@ int lru(vector<int> array, int pageSize, vector<int> givenArray, int Size)
         if (!isAvailable(array, value))
         {
             array[index] = value;
-            if (count >= pageSize)
+            //if (count >= pageSize)
                 fault++;
             count++;
             index++;
@@ -107,7 +116,7 @@ int fifo(vector<int> array, int pageSize, vector<int> givenArray, int Size)
         if (!isAvailable(array, value))
         {
             array[top] = value;
-            if (count != 0)
+            //if (count != 0)
                 fault++;
             top++;
         }
@@ -118,17 +127,18 @@ int fifo(vector<int> array, int pageSize, vector<int> givenArray, int Size)
     return fault;
 }
 
-vector<int> opIdx(vector<int> array, int pageSize, vector<int> givenArray, int Size)
+vector<int> opIdx(vector<int> array, int pageSize, vector<int> givenArray, int Size, int till)
 {
     vector<int> index(pageSize, -1);
     for (int i = 0; i < pageSize; i++)
     {
-        int j = findIndex(givenArray, Size, array[i]);
+        int j = findIndex(givenArray, Size, till, array[i]);
         index[i] = j;
     }
     return index;
 }
-int findMAX(vector<int> givenArray, int Size){
+int findMAX(vector<int> givenArray, int Size)
+{
     int max = givenArray[0], index = 0;
     for (int i = 0; i < Size; i++)
     {
@@ -141,7 +151,8 @@ int findMAX(vector<int> givenArray, int Size){
     return index;
 }
 
-int optimal(vector<int> array, int pageSize, vector<int>givenArray, int Size){
+int optimal(vector<int> array, int pageSize, vector<int> givenArray, int Size)
+{
     int fault = 0, count = 0;
     makeArray(array, pageSize);
     int index = 0;
@@ -149,7 +160,7 @@ int optimal(vector<int> array, int pageSize, vector<int>givenArray, int Size){
     {
         if (count >= pageSize)
         {
-            vector<int> lindex = opIdx(array, pageSize, givenArray, Size);
+            vector<int> lindex = opIdx(array, pageSize, givenArray, Size, i);
             index = findMAX(lindex, pageSize);
         }
 
@@ -157,7 +168,7 @@ int optimal(vector<int> array, int pageSize, vector<int>givenArray, int Size){
         if (!isAvailable(array, value))
         {
             array[index] = value;
-            if (count >= pageSize)
+            //if (count >= pageSize)
                 fault++;
             count++;
             index++;

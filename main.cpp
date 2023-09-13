@@ -20,11 +20,13 @@ int main()
 
     while (run)
     {
+
         int choice = -1;
-        cout << "1. FIFO" << endl
+        cout << "=========================================================================================" << endl
+             << "1. FIFO" << endl
              << "2. LRU" << endl
              << "3. OPTIMAL" << endl
-             << "9. EXIT"<< endl;
+             << "9. EXIT" << endl;
 
         cout << "make your choice: ";
         cin >> choice;
@@ -36,8 +38,7 @@ int main()
             cout << "enter the page count: ";
             cin >> pageSize;
             vector<int> array(pageSize, -1);
-            cout << "=========================================================================================" << endl
-                 << "FIFO: " << endl;
+            cout << "FIFO: " << endl;
             int fifoFault = fifo(array, pageSize, givenArray, Size);
             cout << "Fault: " << fifoFault << endl
                  << "=========================================================================================" << endl;
@@ -48,8 +49,7 @@ int main()
             cout << "enter the page count: ";
             cin >> pageSize;
             vector<int> array(pageSize, -1);
-            cout << "=========================================================================================" << endl
-                 << "LRU: " << endl;
+            cout << "LRU: " << endl;
             int lruFault = lru(array, pageSize, givenArray, Size);
             cout << "Fault: " << lruFault << endl
                  << "=========================================================================================" << endl;
@@ -60,8 +60,7 @@ int main()
             cout << "enter the page count: ";
             cin >> pageSize;
             vector<int> array(pageSize, -1);
-            cout << "=========================================================================================" << endl
-                 << "LRU: " << endl;
+            cout << "OPTIMAL: " << endl;
             int optFault = optimal(array, pageSize, givenArray, Size);
             cout << "Fault: " << optFault << endl
                  << "=========================================================================================" << endl;
